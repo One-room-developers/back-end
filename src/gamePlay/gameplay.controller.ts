@@ -1,5 +1,6 @@
 import { Controller, Get, Param, Post, Render, Body } from '@nestjs/common';
 import { CreateEpisodeDTO } from 'src/episode/dto/create-episode.dto';
+import { CreateOptionsDTO } from 'src/episode/dto/create-options.dto';
 import { GamePlayService } from './gameplay.service';
 
 @Controller('game_play')
@@ -16,7 +17,12 @@ export class GamePlayController {
   }
 
   @Post()
-  async create(@Body() createEpisodeDto: CreateEpisodeDTO) {
-    return await this.gamePlayService.createEpisode(createEpisodeDto);
+  async create(@Body() createEpisodeDTO: CreateEpisodeDTO) {
+    return await this.gamePlayService.createEpisode(createEpisodeDTO);
+  }
+
+  @Post('option')
+  async createOption(@Body() createOptionsDTO: CreateOptionsDTO) {
+    return await this.gamePlayService.createOptions(createOptionsDTO);
   }
 }

@@ -1,6 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Options } from './option.entity';
+import { OneToMany, Column, Entity, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm';
 
-@Entity('episode')
+@Entity('test_episode')
 export class Episode {
   @PrimaryGeneratedColumn()
   id: number;
@@ -8,18 +9,15 @@ export class Episode {
   @Column({ default: 1 })
   genre: number;
 
+  @CreateDateColumn()
+  createdAt: Date;
+
   @Column({ length: 20 })
   title: string;
 
   @Column({ type: 'text' })
   mainText: string;
 
-  @Column({ type: 'varchar' })
-  optionText1: string;
-
-  @Column({ type: 'varchar' })
-  optionText2: string;
-
-  @Column({ type: 'varchar' })
-  optionText3: string;
+  @OneToMany(type => Options, options => options.episode)
+  options: Options[];
 }
