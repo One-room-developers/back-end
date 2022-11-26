@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>game_play</title>
     <link rel="stylesheet" href="/css/style.css">
-    <script src="/js/game_play.js"></script>
+
+    <script src="https://cdn.socket.io/4.3.2/socket.io.min.js" integrity="sha384-KAZ4DtjNhLChOB/hxXuKqhMLYvx3b5MlT55xPEiNmREKRzeEm+RVPlTnAn0ajQNs" crossorigin="anonymous"></script>
+
 </head>
 <body class="game_play_body">
     <div class="game_play-left_ui"></div>
@@ -47,5 +49,24 @@
     </main>
 
     <div class="game_play-right_ui"></div>
+    <script src="/js/game_play.js" type="module"></script>
 </body>
+    <script>
+        const main = document.querySelector(".game_play-main");
+        const textView = main.querySelector(".text_view");
+        const episode1 = textView.querySelector(".episode_number_text");
+        
+        const socket = io();
+        socket.on('connect', function() {
+            console.log('Connected');
+
+            socket.emit('show_episode', 1, response =>
+            episode1.innerHTML = response.mainText,
+            );
+        });
+        socket.on('disconnect', function() {
+            console.log('Disconnected');
+        });
+    </script>
+
 </html>

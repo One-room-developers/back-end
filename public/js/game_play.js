@@ -2,7 +2,7 @@ window.onload =  main;
 
 function main(){
     setTimeout(function(){typing_episode(0)}, 3000);
-  };
+};
 
 function typing_episode(index){
   var episode_text = document.querySelector('.episode_text');
