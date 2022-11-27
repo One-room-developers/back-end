@@ -1,5 +1,6 @@
 import { Options } from './option.entity';
-import { OneToMany, Column, Entity, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm';
+import { OneToOne, OneToMany, Column, Entity, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm';
+import { Character } from 'src/character/entities/character.entity';
 
 @Entity('test_episode')
 export class Episode {
@@ -20,4 +21,7 @@ export class Episode {
 
   @OneToMany(type => Options, options => options.episode)
   options: Options[];
+
+  @OneToOne(type => Character, character => character.episode)
+  character: Character;
 }

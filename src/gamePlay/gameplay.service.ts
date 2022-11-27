@@ -5,12 +5,15 @@ import { CreateEpisodeDTO } from '../episode/dto/create-episode.dto';
 import { Repository } from 'typeorm';
 import { CreateOptionsDTO } from 'src/episode/dto/create-options.dto';
 import { Options } from 'src/episode/entities/option.entity';
+import { CharacterDTO } from 'src/character/dto/character.dto';
+import { Character } from 'src/character/entities/character.entity';
 
 @Injectable()
 export class GamePlayService {
   constructor(
     @InjectRepository(Episode) private episodeRepo: Repository<Episode>,
     @InjectRepository(Options) private optionsRepo: Repository<Options>,
+    @InjectRepository(Character) private characterRepo: Repository<Character>,
   ) {}
 
   async createEpisode(createEpisodeDto: CreateEpisodeDTO) {
@@ -45,6 +48,26 @@ export class GamePlayService {
       return { msg: 'success', successMsg: '선택지 생성 성공' };
     } catch(err) {
       throw new NotFoundException(`Can't create option`);
+    }
+  }
+
+  async createCharacter(characterDTO: CharacterDTO) {
+    try {
+      const character = new Character();
+
+      character.episode = characterDTO.episode;
+      character.health = characterDTO.health;
+      character.money = characterDTO.money;
+      character.hungry = characterDTO.hungry;
+      character.strength = characterDTO.strength;
+      character.agility = characterDTO.agility;
+      character.armour = characterDTO.armour;
+      character.mental = characterDTO.mental;
+
+      await this.characterRepo.insert(character);
+      return { msg: 'success', successMsg: '캐릭터 생성 성공' };
+    } catch (err) {
+      throw new NotFoundException(`Can't create character`);
     }
   }
 
