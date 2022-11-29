@@ -9,7 +9,7 @@ export class Options {
   @ManyToOne(type => Episode, episode => episode.options)
   episode: Episode;
 
-  @Column({ length: 100 })
+  @Column({ length: 100, type: 'varchar' })
   text: string;
 
   @Column()

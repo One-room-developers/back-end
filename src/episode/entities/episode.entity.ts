@@ -10,10 +10,10 @@ export class Episode {
   @Column({ default: 1 })
   genre: number;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'timestamp without time zone' })
   createdAt: Date;
 
-  @Column({ length: 20 })
+  @Column({ length: 20, type: 'varchar' })
   title: string;
 
   @Column({ type: 'text' })

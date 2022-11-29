@@ -77,4 +77,11 @@ export class GamePlayService {
     });
     return episode;
   }
+
+  async getOptions(episode: number): Promise<Options[]> {
+    const options = await this.optionsRepo.find({
+      where: { episode },
+    });
+    return options;
+  }
 }
