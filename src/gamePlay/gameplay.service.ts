@@ -78,10 +78,17 @@ export class GamePlayService {
     return episode;
   }
 
-  async getOptions(episode: number): Promise<Options[]> {
-    const options = await this.optionsRepo.find({
-      where: { episode },
-    });
+  async getOptions(episode_id: number): Promise<Options[]> {
+    const options = await this.optionsRepo.createQueryBuilder("options")
+    .where("options.episodeId = :episodeId", { episodeId: episode_id })
+    .getMany()
     return options;
+  }
+
+  async getCharacter(current_episode_id: number): Promise<Character> {
+    const character = await this.characterRepo.createQueryBuilder("character")
+    .where("character.current_episode_id = :current_episode_id", { current_episode_id: current_episode_id })
+    .getOne()
+    return character;
   }
 }
