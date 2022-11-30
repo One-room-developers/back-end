@@ -8,7 +8,9 @@ import {
 import { from, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Server } from 'socket.io';
+import { Character } from 'src/character/entities/character.entity';
 import { Episode } from 'src/episode/entities/episode.entity';
+import { Options } from 'src/episode/entities/option.entity';
 import { GamePlayService } from 'src/gamePlay/gameplay.service';
 
 @WebSocketGateway({
@@ -28,6 +30,6 @@ export class EventsGateway {
 
   @SubscribeMessage('show_episode')
   async showEpisode(@MessageBody() data: number): Promise<Episode> {
-    return this.gamePlayService.getEpisodeById(data);
+    return this.gamePlayService.getEpisode(data);
   }
 }

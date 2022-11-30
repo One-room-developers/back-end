@@ -1,7 +1,7 @@
-import { Controller, Get, Param, Post, Render, Body } from '@nestjs/common';
+import { Controller, Get, Param, Post, Render, Body, Patch } from '@nestjs/common';
 import { CharacterDTO } from 'src/character/dto/character.dto';
-import { CreateEpisodeDTO } from 'src/episode/dto/create-episode.dto';
-import { CreateOptionsDTO } from 'src/episode/dto/create-options.dto';
+import { CreateEpisodeDTO } from 'src/episode/dto/createEpisode.dto';
+import { CreateOptionsDTO } from 'src/episode/dto/createOptions.dto';
 import { GamePlayService } from './gameplay.service';
 
 
@@ -13,17 +13,17 @@ export class GamePlayController {
   @Render('game_play')
   root() {}
 
-  @Get('episode:id')
+  @Get('episode/:id')
   getOne(@Param('id') episode_id: number) {
-    return this.gamePlayService.getEpisodeById(episode_id);
+    return this.gamePlayService.getEpisode(episode_id);
   }
 
-  @Get('options:id')
+  @Get('options/:id')
   getOptions(@Param('id') episode_id: number) {
     return this.gamePlayService.getOptions(episode_id);
   }
 
-  @Get('character:id')
+  @Get('character/:id')
   getCharacter(@Param('id') episode_id: number) {
     return this.gamePlayService.getCharacter(episode_id);
   }
@@ -41,5 +41,10 @@ export class GamePlayController {
   @Post('character')
   async createCharacter(@Body() characterDTO: CharacterDTO) {
     return await this.gamePlayService.createCharacter(characterDTO);
+  }
+
+  @Patch('change_character')
+  async changeStatus(@Body() characterDTO: CharacterDTO, optionDTO: CreateOptionsDTO) {
+    return await this.gamePlayService.changeCharacter(characterDTO, optionDTO);
   }
 }
