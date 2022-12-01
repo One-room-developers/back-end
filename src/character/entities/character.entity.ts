@@ -8,12 +8,12 @@ export class Character {
 
   @OneToOne(type => Episode, episode => episode.character)
   @JoinColumn({
-    name: 'episode_id',
+    name: 'current_episode_id',
     referencedColumnName: 'id',
   })
   episode: Episode;
 
-  @Column({ })
+  @Column()
   health: number;
 
   @Column()

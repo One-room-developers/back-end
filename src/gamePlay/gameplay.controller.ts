@@ -1,7 +1,7 @@
 import { Controller, Get, Param, Post, Render, Body } from '@nestjs/common';
 import { CharacterDTO } from 'src/character/dto/character.dto';
-import { CreateEpisodeDTO } from 'src/episode/dto/create-episode.dto';
-import { CreateOptionsDTO } from 'src/episode/dto/create-options.dto';
+import { CreateEpisodeDTO } from 'src/episode/dto/createEpisode.dto';
+import { CreateOptionsDTO } from 'src/episode/dto/createOptions.dto';
 import { GamePlayService } from './gameplay.service';
 
 
@@ -15,7 +15,7 @@ export class GamePlayController {
 
   @Get(':id')
   getOne(@Param('id') episodeId: number) {
-    return this.gamePlayService.getEpisodeById(episodeId);
+    return this.gamePlayService.getEpisode(episodeId);
   }
 
   @Post()
