@@ -7,6 +7,7 @@ import { CreateOptionsDTO } from 'src/episode/dto/createOptions.dto';
 import { Options } from 'src/episode/entities/option.entity';
 import { CharacterDTO } from 'src/character/dto/character.dto';
 import { Character } from 'src/character/entities/character.entity';
+import { ChangeStatusDTO } from 'src/character/dto/statusChange.dto';
 
 @Injectable()
 export class GamePlayService {
@@ -99,21 +100,21 @@ export class GamePlayService {
   }
 
   // 현재 플레이 중인 캐릭터 스테이터스 업데이트
-  async changeCharacter(characterDTO: CharacterDTO, optionDTO: CreateOptionsDTO) {
+  async changeStatus(current_episode_id: number, changeStatusDTO: ChangeStatusDTO) {
     return await this.characterRepo
     .createQueryBuilder()
     .update(Character)
     .set(
       { 
-        health: characterDTO.health + optionDTO.health_change, 
-        money: characterDTO.money + optionDTO.money_change,
-        hungry: characterDTO.hungry + optionDTO.hungry_change,
-        strength: characterDTO.strength + optionDTO.strength_change,
-        agility: characterDTO.agility + optionDTO.agility_change,
-        armour: characterDTO.armour + optionDTO.armour_change,
-        mental: characterDTO.mental + optionDTO.mental_change,
+        health: changeStatusDTO.changed_health, 
+        money: changeStatusDTO.changed_money,
+        hungry: changeStatusDTO.changed_hungry,
+        strength: changeStatusDTO.changed_strength,
+        agility: changeStatusDTO.changed_agility,
+        armour: changeStatusDTO.changed_armour,
+        mental: changeStatusDTO.changed_mental,
       })
-    .where("current_episode_id = :current_episode_id", { current_episode_id: characterDTO.episode })
+    .where("current_episode_id = :episode_id", { episode_id: current_episode_id })
     .execute()
     .then(() => {
       return { msg: 'success', successMsg: '캐릭터 업데이트 성공' };
