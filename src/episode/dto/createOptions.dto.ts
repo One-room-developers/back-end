@@ -8,6 +8,9 @@ export class CreateOptionsDTO {
 
   @IsString()
   readonly text: string;
+  
+  @IsString()
+  readonly result_text: string;
 
   @IsNumber()
   readonly health_change: number;

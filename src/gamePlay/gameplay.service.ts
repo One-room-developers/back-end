@@ -39,6 +39,7 @@ export class GamePlayService {
 
       option.episode = createOptionsDTO.episode;
       option.text = createOptionsDTO.text;
+      option.result_text = createOptionsDTO.result_text;
       option.health_change = createOptionsDTO.health_change;
       option.money_change = createOptionsDTO.money_change;
       option.hungry_change = createOptionsDTO.hungry_change;
@@ -55,18 +56,18 @@ export class GamePlayService {
   }
 
   // 캐릭터 생성
-  async createCharacter(characterDTO: CharacterDTO) {
+  async createCharacter(episode_id: Episode) {
     try {
       const character = new Character();
 
-      character.episode = characterDTO.episode;
-      character.health = characterDTO.health;
-      character.money = characterDTO.money;
-      character.hungry = characterDTO.hungry;
-      character.strength = characterDTO.strength;
-      character.agility = characterDTO.agility;
-      character.armour = characterDTO.armour;
-      character.mental = characterDTO.mental;
+      character.episode = episode_id;
+      character.health = 3;
+      character.money = 3;
+      character.hungry = 3;
+      character.strength = 10;
+      character.agility = 10;
+      character.armour = 10;
+      character.mental = 10;
 
       await this.characterRepo.insert(character);
       return { msg: 'success', successMsg: '캐릭터 생성 성공' };
@@ -105,7 +106,7 @@ export class GamePlayService {
     .createQueryBuilder()
     .update(Character)
     .set(
-      { 
+      {
         health: changeStatusDTO.changed_health, 
         money: changeStatusDTO.changed_money,
         hungry: changeStatusDTO.changed_hungry,

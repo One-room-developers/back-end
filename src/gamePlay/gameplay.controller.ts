@@ -1,8 +1,8 @@
 import { Controller, Get, Param, Post, Render, Body, Patch } from '@nestjs/common';
-import { CharacterDTO } from 'src/character/dto/character.dto';
 import { ChangeStatusDTO } from 'src/character/dto/statusChange.dto';
 import { CreateEpisodeDTO } from 'src/episode/dto/createEpisode.dto';
 import { CreateOptionsDTO } from 'src/episode/dto/createOptions.dto';
+import { Episode } from 'src/episode/entities/episode.entity';
 import { GamePlayService } from './gameplay.service';
 
 
@@ -39,9 +39,9 @@ export class GamePlayController {
     return await this.gamePlayService.createOptions(createOptionsDTO);
   }
 
-  @Post('character')
-  async createCharacter(@Body() characterDTO: CharacterDTO) {
-    return await this.gamePlayService.createCharacter(characterDTO);
+  @Post('character/:id')
+  async createCharacter(@Param('id') episode_id: Episode) {
+    return await this.gamePlayService.createCharacter(episode_id);
   }
 
   @Patch('change_character/:id')
