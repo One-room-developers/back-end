@@ -5,7 +5,6 @@ import { CreateEpisodeDTO } from '../episode/dto/createEpisode.dto';
 import { Repository } from 'typeorm';
 import { CreateOptionsDTO } from 'src/episode/dto/createOptions.dto';
 import { Options } from 'src/episode/entities/option.entity';
-import { CharacterDTO } from 'src/character/dto/character.dto';
 import { Character } from 'src/character/entities/character.entity';
 import { ChangeStatusDTO } from 'src/character/dto/statusChange.dto';
 
@@ -26,7 +25,7 @@ export class GamePlayService {
       episode.mainText = createEpisodeDto.mainText;
 
       await this.episodeRepo.insert(episode);
-      return { msg: 'success', successMsg: '에피소드 생성 성공' };
+      return episode.id;
     } catch (err) {
       throw new NotFoundException(`Can't create episode`);
     }

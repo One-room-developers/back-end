@@ -29,7 +29,7 @@ export class GamePlayController {
     return this.gamePlayService.getCharacter(episode_id);
   }
 
-  @Post()
+  @Post('episode')
   async createEpisode(@Body() createEpisodeDTO: CreateEpisodeDTO) {
     return await this.gamePlayService.createEpisode(createEpisodeDTO);
   }
